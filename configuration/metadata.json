@@ -1,0 +1,10 @@
+{
+    "configuration_content" : {
+        "docker_hostname" : {
+            "title" : "Docker hostname",
+            "type" : "text",
+            "default" : null,
+            "details" : "Hostname of the Docker socket to connect to"
+        }
+    }
+}

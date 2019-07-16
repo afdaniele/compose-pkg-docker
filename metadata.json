@@ -1,0 +1,15 @@
+{
+    "name" : "Docker",
+    "description" : "Provides an API to Docker",
+    "core" : {
+        "namespace" : "docker",
+        "file" : "Docker.php",
+        "class" : "Docker"
+    },
+    "dependencies" : {
+        "system-packages" : [
+            "docker"
+        ],
+        "packages" : []
+    }
+}
