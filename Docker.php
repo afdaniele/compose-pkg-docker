@@ -73,7 +73,7 @@ class Docker{
 	// =======================================================================================================
 	// Public functions
 
-	public static function pull($image){
+	public static function pull($image, $async=false){
     // do stuff
   }//pull
 
@@ -82,9 +82,41 @@ class Docker{
 	// =======================================================================================================
 	// Private functions
 
-  public static function docker($cmd){
-    // do stuff
-  }//pull
+  //TODO: this should be private
+  public static function docker($command){
+    // get docker hostname
+    $cmd_parts = ['docker'];
+    $hostname = Core::getSetting('docker_hostname', 'docker', null);
+    if (!is_null($hostname) && strlen(trim($hostname)) > 0) {
+      $cmd_parts = array_merge($cmd_parts, ['-H', $hostname]);
+    }
+    // turn cmd parts into command string
+    $cmd_parts = array_merge($cmd_parts, $command);
+    $cmd_parts = array_merge($cmd_parts, ['2>&1']);
+    $cmd = implode(' ', $cmd_parts);
+    // use docker command
+    $output = [];
+    $exit_code = 0;
+    exec($cmd, $output, $exit_code);
+    $success = boolval($exit_code == 0);
+
+
+    echoArray($cmd);
+    echoArray($exit_code);
+    echoArray($success);
+    echoArray($output);
+
+
+    $output = array_values($output);
+
+
+
+    //
+    return [
+      'success' => $exit_code,
+      'data' => $output
+    ];
+  }//docker
 
 }//Duckiebot
 ?>
